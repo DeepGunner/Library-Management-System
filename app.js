@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const path = require('path');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 //init app
 const app = express();
@@ -17,7 +17,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
   }
 })
- 
+
 var upload = multer({ storage: storage })
 
 //link to db
@@ -29,7 +29,7 @@ db.once('open', function () {
     console.log('Connected to MongoDb');
 })
 
-//set static 
+//set static
 app.use(express.static(__dirname + '/public'));
 
 //Body parser middleware
@@ -63,13 +63,13 @@ app.get('/', function (req, res) {
 //book details view
 app.get('/book/:id', function (req, res) {
     Book.findById(req.params.id, function (err, book) {
-        
+
         // Comment.findOne({ user_id: req.params.id }, function (err, comments) {
         //     console.log(comments);
-        
+
             res.render('book', {
                 book: book,
-                
+
             });
         })
     });
@@ -102,7 +102,7 @@ app.post("/uLogin", (req, res) => {
         console.log("user logged in");
         res.redirect("uIndex");
       }
-  
+
     })
   })
 
@@ -114,13 +114,13 @@ app.post('/uLogin/uRegister', function (req, res) {
     user.firstname = req.body.firstname;
     user.lastname = req.body.lastname;
     user.password = req.body.password;
-    
+
 
 
     user.save(function () {
-        
+
             res.redirect('/');
-        
+
     });
 });
 
@@ -147,7 +147,7 @@ app.post("/eLogin", (req, res) => {
         console.log("Employee logged in");
         res.redirect("/eIndex");
       }
-  
+
     })
   })
 
@@ -164,13 +164,13 @@ app.post('/eLogin/eRegister', function (req, res) {
     employee.firstname = req.body.firstname;
     employee.lastname = req.body.lastname;
     employee.password = req.body.password;
-    
+
 
 
     employee.save(function () {
-        
+
             res.redirect('/');
-        
+
     });
 });
 
@@ -211,12 +211,12 @@ app.get('/uIndex', function (req, res) {
 
 //manage books
 app.get('/eIndex/manage', function (req, res){
-    res.render('manage');  
+    res.render('manage');
 })
 
 //add book
 app.get('/eIndex/manage/add', function (req, res){
-    res.render('addBook');   
+    res.render('addBook');
 })
 
 //add book post
@@ -234,12 +234,12 @@ app.post("/addBook", function(req, res) {
 
 //update book
 app.get('/eIndex/manage/update', function (req, res){
-    res.render('updateBook');  
+    res.render('updateBook');
 })
 
 //delete
 app.get('/eIndex/manage/delete', function (req, res){
-    res.render('deleteBook');  
+    res.render('deleteBook');
 })
 //Start server
 app.listen(3030, function () {
