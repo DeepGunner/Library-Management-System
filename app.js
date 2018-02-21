@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 //init app
 const app = express();
@@ -69,6 +70,28 @@ app.get('/uLogin/',function(req,res){
 app.get('/uLogin/uRegister/',function(req,res){
     res.render('uRegister')
 })
+var currentUser
+//ulogin auth
+app.post("/uLogin", (req, res) => {
+    var username = req.body.username;
+    var password = req.body.password;
+    currentUser = username;
+    User.findOne({username: username, password: password},  (err, user) => {
+      if(err){
+        console.log('error while logging..');
+        res.send("error while logging");
+        return;
+      }
+      if(!user) {
+        console.log("incorrect username or password");
+        return;
+      }else {
+        console.log("user logged in");
+        res.redirect("uIndex");
+      }
+  
+    })
+  })
 
 //user register post
 app.post('/uLogin/uRegister', function (req, res) {
@@ -92,6 +115,28 @@ app.post('/uLogin/uRegister', function (req, res) {
 app.get('/eLogin/',function(req,res){
     res.render('eLogin')
 })
+var currentEmp;
+//elogin auth
+app.post("/eLogin", (req, res) => {
+    var username = req.body.username;
+    var password = req.body.password;
+    currentEmp = username;
+    Employee.findOne({username: username, password: password},  (err, employee) => {
+      if(err){
+        console.log('error while logging..');
+        res.send("error while logging");
+        return;
+      }
+      if(!employee) {
+        console.log("incorrect username or password");
+        return;
+      }else {
+        console.log("Employee logged in");
+        res.redirect("/eIndex");
+      }
+  
+    })
+  })
 
 //employee register
 app.get('/eLogin/eRegister/',function(req,res){
@@ -116,8 +161,61 @@ app.post('/eLogin/eRegister', function (req, res) {
     });
 });
 
+//user homepage
+app.get('/uIndex', function (req, res) {
+    console.log(currentUser);
+    Book.find( function (err, book) {
+    User.findOne({"username":currentUser}, function (err, user) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('uIndex', {
+            book: book,
+            user: user
+                });
+            }
+        })
+    });
+ });
 
+//employee homepage
+ app.get('/eIndex', function (req, res) {
+    console.log(currentEmp);
+    Book.find( function (err, book) {
+    Employee.findOne({"username":currentEmp}, function (err, employee) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('eIndex', {
+            book: book,
+            employee: employee
+                });
+            }
+        })
+    });
+ });
+
+
+//manage books
+app.get('/eIndex/manage', function (req, res){
+    res.render('manage');  
+})
+
+//add book
+app.get('/eIndex/manage/add', function (req, res){
+    res.render('addBook');  
+})
+
+//update book
+app.get('/eIndex/manage/update', function (req, res){
+    res.render('updateBook');  
+})
+
+//delete
+app.get('/eIndex/manage/delete', function (req, res){
+    res.render('deleteBook');  
+})
 //Start server
 app.listen(3030, function () {
-    console.log('Server running on port 3000');
+    console.log('Server running on port 3000')
 })

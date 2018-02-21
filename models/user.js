@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const bcrypt = require('bcrypt');
 
 //user schema
 
@@ -23,5 +24,12 @@ let userSchema = mongoose.Schema({
     issuedBooks: mongoose.Schema.Types.ObjectId
 })
 
+// userSchema.methods.generateHash = function(password){
+// 	return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+// }
+
+// userSchema.methods.validPassword = function(password){
+// 	return bcrypt.compareSync(password, this.password);
+// }
 
 let User = module.exports = mongoose.model('User', userSchema);

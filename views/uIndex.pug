@@ -1,0 +1,6 @@
+h1 Welcome to the library #{user.firstname}
+
+h4 List of books available:
+each x, i in book
+    li 
+        a(href="/book/"+ x._id) #{x.title}
