@@ -1,1 +1,19 @@
 h1 Add
+form(method="POST", action='/addBook' )
+  | Title:
+  br
+  input(type='text', name='title')
+  br
+  | Author:
+  br
+  input(type='text', name='author')
+  br
+  input(type='file', name='img', accept='image/*')
+  br
+  | Type:
+  br
+  input(type='text', name='type')
+  br
+  input(type='submit', value='Submit')
+h4
+    a(href="/eIndex") Home

@@ -7,6 +7,19 @@ const bcrypt = require('bcrypt');
 //init app
 const app = express();
 
+//multer object creation
+var multer  = require('multer')
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/img/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
 //link to db
 mongoose.connect('mongodb://localhost/library');
 let db = mongoose.connection;
@@ -203,7 +216,20 @@ app.get('/eIndex/manage', function (req, res){
 
 //add book
 app.get('/eIndex/manage/add', function (req, res){
-    res.render('addBook');  
+    res.render('addBook');   
+})
+
+//add book post
+app.post("/addBook", function(req, res) {
+    let newBook = new Book();
+    newBook.title = req.body.title;
+    newBook.author = req.body.author;
+    newBook.type = req.body.type;
+    newBook.img = "/img/"+ req.body.img;
+    console.log(req.body.img);
+    newBook.save( function() {
+        res.redirect('/');
+    })
 })
 
 //update book
