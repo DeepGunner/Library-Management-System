@@ -58,7 +58,33 @@ app.get('/book/:id', function (req, res) {
         })
     });
 
+//user login
+app.get('/uLogin/',function(req,res){
+    res.render('uLogin')
+})
 
+//user register
+app.get('/uLogin/uRegister/',function(req,res){
+    res.render('uRegister')
+})
+
+//user register post
+app.post('/uLogin/uRegister/', function(req,res){
+    let user = new User();
+    user.username = req.body.username;
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    
+    user.save(function (err) {
+        if (err) {
+        console.log(err);
+            return;
+            } 
+            else {
+                res.redirect('/');
+            }
+        });
+    });
 
 
 //Start server
