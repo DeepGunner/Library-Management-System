@@ -18,7 +18,9 @@ db.once('open', function () {
 //set static 
 app.use(express.static(__dirname + '/public'));
 
-
+//Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 
 
@@ -48,7 +50,7 @@ app.get('/', function (req, res) {
 app.get('/book/:id', function (req, res) {
     Book.findById(req.params.id, function (err, book) {
         
-        // Comment.findOne({ article_id: req.params.id }, function (err, comments) {
+        // Comment.findOne({ user_id: req.params.id }, function (err, comments) {
         //     console.log(comments);
         
             res.render('book', {
@@ -69,22 +71,50 @@ app.get('/uLogin/uRegister/',function(req,res){
 })
 
 //user register post
-app.post('/uLogin/uRegister/', function(req,res){
+app.post('/uLogin/uRegister', function (req, res) {
     let user = new User();
+    console.log(user);
     user.username = req.body.username;
     user.firstname = req.body.firstname;
     user.lastname = req.body.lastname;
+    user.password = req.body.password;
     
-    user.save(function (err) {
-        if (err) {
-        console.log(err);
-            return;
-            } 
-            else {
-                res.redirect('/');
-            }
-        });
+
+
+    user.save(function () {
+        
+            res.redirect('/');
+        
     });
+});
+
+//employee login
+app.get('/eLogin/',function(req,res){
+    res.render('eLogin')
+})
+
+//employee register
+app.get('/eLogin/eRegister/',function(req,res){
+    res.render('eRegister')
+})
+
+
+//employee register post
+app.post('/eLogin/eRegister', function (req, res) {
+    let employee = new Employee();
+    employee.username = req.body.username;
+    employee.firstname = req.body.firstname;
+    employee.lastname = req.body.lastname;
+    employee.password = req.body.password;
+    
+
+
+    employee.save(function () {
+        
+            res.redirect('/');
+        
+    });
+});
 
 
 //Start server
