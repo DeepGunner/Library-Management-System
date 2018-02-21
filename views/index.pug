@@ -1,9 +1,9 @@
 h1 Welcome to the library
 h4
     a(href="/uLogin/") User Log-In
-h4 
+h4
     a(href="/eLogin/") Employee Log-In
 h4 List of books available:
 each x, i in book
-    li 
+    li
         a(href="/book/"+ x._id) #{x.title}
