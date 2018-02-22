@@ -3,15 +3,17 @@ $(document).ready(function(){
       $target = $(e.target);
       const id = $target.attr('bookId');
       $.ajax({
-        type:'POST',
+        type:'DELETE',
         url: '/book/'+id,
         success: function(response){
+          console.log('');
           alert('Deleting book');
           window.location.href='/';
+        },
+        error: function(err){
+          console.log(err);
         }
-       
-        
       });
     });
-});
+  });
   

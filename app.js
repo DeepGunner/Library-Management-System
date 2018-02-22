@@ -220,7 +220,7 @@ app.post("/addBook", function(req, res) {
     let newBook = new Book();
     newBook.title = req.body.title;
     newBook.author = req.body.author;
-    newBook.type = req.body.type;
+    newBook.genre = req.body.genre;
     newBook.img = "/img/"+ req.body.img;
     console.log(req.body.img);
     newBook.save( function() {
@@ -243,7 +243,7 @@ app.post('/book/update/:id', function(req, res){
     let book = {};
     book.title = req.body.title;
     book.author = req.body.author;
-    book.type = req.body.body;
+    book.genre = req.body.genre;
     book.img = "/img/"+req.body.img;
   
     let query = {_id:req.params.id}
@@ -260,7 +260,7 @@ app.post('/book/update/:id', function(req, res){
 
 
 //delete
-app.delete('book/:id', function(req, res){
+app.delete('/book/:id', function(req, res){
     let query = {_id:req.params.id}
     console.log('begining to delete')
     Book.remove(query, function(err){
