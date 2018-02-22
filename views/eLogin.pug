@@ -31,29 +31,31 @@ html
               li
                 a(href='/uLogin/') User Login
 
+          
 
-    form.form-horizontal(action='/eLogin', method="POST")
-      .form-group
-        label.col-sm-2.control-label(for='inputEmail3') EmployeeName
-        .col-sm-10
-          input#inputEmail3.form-control(type='text', placeholder='Ename', name='username')
-      .form-group
-        label.col-sm-2.control-label(for='inputPassword3') Password
-        .col-sm-10
-          input#inputPassword3.form-control(type='password', placeholder='Password', name='password')
-      .form-group
-        .col-sm-offset-2.col-sm-10
-          .checkbox
-            label
-              input(type='checkbox')
-              |  Remember me
-      .form-group
-        .col-sm-offset-2.col-sm-10
-          button.btn.btn-default(type='submit') Sign in
+    .container
+      form.form-horizontal(action='/eLogin', method="POST")
+        .form-group
+          label.col-sm-2.control-label(for='inputEmail3') EmployeeName
+          .col-sm-10
+            input#inputEmail3.form-control(type='text', placeholder='EmployeeName', name='username')
+        .form-group
+          label.col-sm-2.control-label(for='inputPassword3') Password
+          .col-sm-10
+            input#inputPassword3.form-control(type='password', placeholder='Password', name='password')
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            .checkbox
+              label
+                input(type='checkbox')
+                |  Remember me
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type='submit') Sign in
 
-    .col-sm-offset-2.col-sm-10
-      h4
-        a(href='eRegister') New Employee?
+      .col-sm-offset-2.col-sm-10
+        h4
+          a(href='eRegister') New Employee?
 
 //h1 Employee Log-in
 //form(action='/eLogin', method="POST")
