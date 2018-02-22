@@ -1,3 +1,7 @@
-h1 #{book.title}
-h3 #{book.author}
-img(src=book.img)
+extends layout
+block content
+    h1 #{book.title}
+    h3 #{book.author}
+    img(src=book.img)
+    a(href='/book/update/'+book._id) Update
+    a.deletebook(href='#', bookId=book._id) Delete

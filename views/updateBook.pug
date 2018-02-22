@@ -1,1 +1,19 @@
 h1 Update
+form(method="POST", action='/book/update/'+book._id )
+  | Title:
+  br
+  input(type='text', name='title' value=book.title)
+  br
+  | Author:
+  br
+  input(type='text', name='author' value=book.author)
+  br
+  input(type='file', name='img', accept='image/*' value=book.img) 
+  br
+  | Type:
+  br
+  input(type='text', name='type' value=book.type)
+  br
+  input(type='submit', value='Submit')
+h4
+    a(href="/eIndex") Home

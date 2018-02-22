@@ -63,16 +63,12 @@ app.get('/', function (req, res) {
 //book details view
 app.get('/book/:id', function (req, res) {
     Book.findById(req.params.id, function (err, book) {
-        
-        // Comment.findOne({ user_id: req.params.id }, function (err, comments) {
-        //     console.log(comments);
-        
-            res.render('book', {
-                book: book,
+        res.render('book', {
+            book: book,
                 
-            });
-        })
-    });
+        });
+    })
+});
 
 //user login
 app.get('/uLogin/',function(req,res){
@@ -233,14 +229,51 @@ app.post("/addBook", function(req, res) {
 })
 
 //update book
-app.get('/eIndex/manage/update', function (req, res){
-    res.render('updateBook');  
+app.get('/book/update/:id', function (req, res){
+        Book.findById(req.params.id, function(err,book){
+            console.log(book)
+            res.render('updateBook',{
+            book:book
+        });  
+    })
 })
 
+//update book post
+app.post('/book/update/:id', function(req, res){
+    let book = {};
+    book.title = req.body.title;
+    book.author = req.body.author;
+    book.type = req.body.body;
+    book.img = "/img/"+req.body.img;
+  
+    let query = {_id:req.params.id}
+  
+    Book.update(query, book, function(err){
+      if(err){
+        console.log(err);
+        return;
+      } else {
+        res.redirect('/');
+      }
+    });
+  });
+
+
 //delete
-app.get('/eIndex/manage/delete', function (req, res){
-    res.render('deleteBook');  
-})
+app.delete('book/:id', function(req, res){
+    let query = {_id:req.params.id}
+    console.log('begining to delete')
+    Book.remove(query, function(err){
+      if(err){
+      console.log(err);
+          }
+          else{
+            res.send('Sucess');
+          }
+
+        });
+      });
+  
 //Start server
 app.listen(3030, function () {
     console.log('Server running on port 3000')
