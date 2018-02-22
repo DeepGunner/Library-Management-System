@@ -2,24 +2,24 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const path = require('path');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const port = Number(process.env.PORT || 3030)
 
 //init app
 const app = express();
 
 //multer object creation
-var multer  = require('multer')
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/img/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-  }
-})
+// var multer  = require('multer')
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'public/img/')
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname)
+//   }
+// })
  
-var upload = multer({ storage: storage })
+// var upload = multer({ storage: storage })
 
 //link to db
 // mongoose.connect('mongodb://localhost/library');
@@ -232,7 +232,7 @@ app.post("/addBook", function(req, res) {
     })
 })
 
-//update book
+//update book view
 app.get('/book/update/:id', function (req, res){
         Book.findById(req.params.id, function(err,book){
             console.log(book)

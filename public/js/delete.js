@@ -6,7 +6,6 @@ $(document).ready(function(){
         type:'DELETE',
         url: '/book/'+id,
         success: function(response){
-          console.log('');
           alert('Deleting book');
           window.location.href='/';
         },
