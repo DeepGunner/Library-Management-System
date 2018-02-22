@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 const path = require('path');
 const bcrypt = require('bcrypt');
+const port = Number(process.env.PORT || 3030)
 
 //init app
 const app = express();
@@ -21,7 +22,10 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 //link to db
-mongoose.connect('mongodb://localhost/library');
+// mongoose.connect('mongodb://localhost/library');
+var connectURL = "mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS +"@ds145438.mlab.com:45438/library"
+mongoose.connect();
+
 let db = mongoose.connection;
 
 //check connection
@@ -275,6 +279,6 @@ app.delete('/book/:id', function(req, res){
       });
   
 //Start server
-app.listen(3030, function () {
+app.listen(port, function () {
     console.log('Server running on port 3000')
 })
