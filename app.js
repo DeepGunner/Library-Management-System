@@ -24,7 +24,7 @@ var upload = multer({ storage: storage })
 //link to db
 // mongoose.connect('mongodb://localhost/library');
 var connectURL = "mongodb://" + process.env.DB_USER + ":" + process.env.DB_PASS +"@ds145438.mlab.com:45438/library"
-mongoose.connect();
+mongoose.connect(connectURL);
 
 let db = mongoose.connection;
 
